@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BUD-INVEST Steel — Konstrukcje Stalowe, Rurociągi, Zbiorniki | Tczew</title>
+<meta name="description" content="BUD-INVEST Sp. z o.o. — konstrukcje stalowe, rurociągi przemysłowe, zbiorniki ciśnieniowe, obróbka metali, prefabrykacja betonu. 15+ lat doświadczenia. Certyfikaty EN 1090, EN ISO 3834. Tczew, Polska.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+--bg:#1a1a1a;--bg2:#2d2d2d;--bg3:#111;--accent:#d4a017;--accent2:#ff6b00;--accent-glow:rgba(212,160,23,.15);
+--text:#e0e0e0;--text-dim:#888;--grid:#333;--white:#f5f5f5;
+--font-head:'Bebas Neue',sans-serif;--font-sub:'Oswald',sans-serif;--font-body:'IBM Plex Mono',monospace;
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.6;overflow-x:hidden}
+::selection{background:var(--accent);color:var(--bg)}
+
+/* GRID OVERLAY */
+.grid-overlay{position:fixed;inset:0;pointer-events:none;z-index:0;
+background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+background-size:60px 60px;opacity:.12}
+
+/* CONCRETE TEXTURE */
+.concrete-texture{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.03;
+background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(17,17,17,.97);backdrop-filter:blur(12px);border-bottom:2px solid var(--accent);transition:all .3s}
+nav.scrolled{box-shadow:0 4px 30px rgba(0,0,0,.5)}
+.nav-inner{max-width:1400px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:.8rem 2rem}
+.nav-logo{font-family:var(--font-head);font-size:1.8rem;color:var(--accent);text-decoration:none;letter-spacing:2px;display:flex;align-items:baseline;gap:.5rem}
+.nav-logo span{color:var(--white)}
+.nav-logo small{font-family:var(--font-body);font-size:.55rem;color:var(--text-dim);letter-spacing:3px}
+.nav-right{display:flex;align-items:center;gap:2rem}
+.nav-links{display:flex;gap:1.5rem;list-style:none}
+.nav-links a{color:var(--text-dim);text-decoration:none;font-family:var(--font-sub);font-size:.85rem;text-transform:uppercase;letter-spacing:2px;transition:color .3s;position:relative}
+.nav-links a:hover,.nav-links a.active{color:var(--accent)}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:var(--accent);transition:width .3s}
+.nav-links a:hover::after{width:100%}
+.lang-switch{display:flex;gap:0;border:1px solid var(--grid);overflow:hidden}
+.lang-switch a{padding:.35rem .6rem;font-size:.65rem;font-family:var(--font-body);font-weight:700;letter-spacing:1px;color:var(--text-dim);text-decoration:none;transition:all .3s;border-right:1px solid var(--grid)}
+.lang-switch a:last-child{border-right:none}
+.lang-switch a.active-lang{background:var(--accent);color:var(--bg)}
+.lang-switch a:hover{color:var(--accent)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.hamburger span{display:block;width:28px;height:2px;background:var(--white);transition:all .3s}
+.hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+
+/* FLOATING CTA */
+.floating-cta{position:fixed;bottom:2rem;right:2rem;z-index:99;padding:1rem 1.8rem;background:var(--accent);color:var(--bg);font-family:var(--font-sub);font-size:.85rem;text-transform:uppercase;letter-spacing:2px;text-decoration:none;font-weight:700;transition:all .3s;box-shadow:0 4px 20px rgba(212,160,23,.4);display:flex;align-items:center;gap:.6rem;opacity:0;transform:translateY(20px);pointer-events:none}
+.floating-cta.show{opacity:1;transform:translateY(0);pointer-events:all}
+.floating-cta:hover{background:var(--accent2);transform:translateY(-3px);box-shadow:0 6px 30px rgba(255,107,0,.4)}
+.floating-cta svg{width:18px;height:18px}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1504917595217-d4dc5ede4bcd?w=1920&q=80') center/cover;filter:brightness(.2) contrast(1.3) grayscale(.5)}
+.hero-noise{position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.03) 2px,rgba(0,0,0,.03) 4px)}
+.hero-vignette{position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 40%,rgba(0,0,0,.6))}
+.hero-content{position:relative;z-index:2;max-width:1400px;margin:0 auto;padding:8rem 2rem 4rem}
+.hero-tag{font-family:var(--font-body);font-size:.75rem;color:var(--accent);letter-spacing:6px;text-transform:uppercase;margin-bottom:1.5rem;display:flex;align-items:center;gap:1rem}
+.hero-tag::before{content:'';width:60px;height:1px;background:var(--accent)}
+.hero h1{font-family:var(--font-head);font-size:clamp(3.5rem,10vw,9rem);line-height:.9;color:var(--white);margin-bottom:1.5rem}
+.hero h1 .outline{-webkit-text-stroke:2px var(--accent);color:transparent}
+.hero-sub{font-family:var(--font-sub);font-size:clamp(1rem,2.5vw,1.5rem);color:var(--text-dim);max-width:750px;margin-bottom:2.5rem;font-weight:400;line-height:1.5}
+.hero-ctas{display:flex;gap:1.5rem;flex-wrap:wrap;align-items:center}
+.hero-cta{display:inline-flex;align-items:center;gap:.8rem;padding:1.1rem 2.8rem;background:var(--accent);color:var(--bg);font-family:var(--font-sub);font-size:1rem;text-transform:uppercase;letter-spacing:3px;text-decoration:none;border:none;cursor:pointer;transition:all .3s;font-weight:700}
+.hero-cta:hover{background:var(--accent2);transform:translateY(-2px);box-shadow:0 8px 30px rgba(255,107,0,.3)}
+.hero-cta svg{width:20px;height:20px}
+.hero-cta-secondary{display:inline-flex;align-items:center;gap:.8rem;padding:1.1rem 2.8rem;background:transparent;color:var(--white);font-family:var(--font-sub);font-size:1rem;text-transform:uppercase;letter-spacing:3px;text-decoration:none;border:2px solid var(--white);transition:all .3s;font-weight:700}
+.hero-cta-secondary:hover{border-color:var(--accent);color:var(--accent)}
+.hero-stats{display:flex;gap:3rem;flex-wrap:wrap;margin-top:3rem;padding-top:2rem;border-top:1px solid var(--grid)}
+.stat{text-align:left}
+.stat-num{font-family:var(--font-head);font-size:3.5rem;color:var(--accent);line-height:1}
+.stat-label{font-size:.7rem;color:var(--text-dim);letter-spacing:3px;text-transform:uppercase;margin-top:.3rem}
+.hero-scroll{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:.5rem;color:var(--text-dim);font-size:.65rem;letter-spacing:4px;text-transform:uppercase;animation:pulse 2s infinite}
+.hero-scroll .line{width:1px;height:40px;background:linear-gradient(to bottom,var(--accent),transparent)}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* SECTIONS */
+section{position:relative;z-index:1}
+.section-pad{padding:7rem 2rem;max-width:1400px;margin:0 auto}
+.section-label{font-family:var(--font-body);font-size:.65rem;color:var(--accent);letter-spacing:8px;text-transform:uppercase;margin-bottom:1rem;display:flex;align-items:center;gap:1rem}
+.section-label::before{content:'//';color:var(--accent)}
+.section-title{font-family:var(--font-head);font-size:clamp(2.5rem,6vw,5rem);color:var(--white);line-height:1;margin-bottom:1rem}
+.section-title .dim{color:var(--text-dim)}
+.section-desc{font-size:.85rem;color:var(--text-dim);max-width:700px;margin-bottom:3rem;line-height:1.8}
+.divider{height:1px;background:linear-gradient(to right,var(--accent),var(--grid),transparent);margin:0 2rem}
+
+/* ABOUT */
+.about{background:var(--bg2)}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;margin-top:3rem}
+.about-img{position:relative;aspect-ratio:4/3;overflow:hidden}
+.about-img img{width:100%;height:100%;object-fit:cover;filter:grayscale(.6) contrast(1.1);transition:filter .5s}
+.about-img:hover img{filter:grayscale(0)}
+.about-img::after{content:'';position:absolute;inset:0;border:2px solid var(--accent);transform:translate(12px,12px);pointer-events:none}
+.about-badge{position:absolute;bottom:-1rem;right:-1rem;background:var(--accent);color:var(--bg);padding:1.2rem 1.5rem;font-family:var(--font-head);font-size:2rem;line-height:1;z-index:2}
+.about-badge small{display:block;font-family:var(--font-body);font-size:.55rem;letter-spacing:2px;margin-top:.2rem}
+.about-text p{margin-bottom:1.2rem;font-size:.85rem;color:var(--text-dim);line-height:1.8}
+.about-text p strong{color:var(--white)}
+.about-highlights{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:2rem}
+.about-highlight{padding:1rem;border:1px solid var(--grid);transition:border-color .3s}
+.about-highlight:hover{border-color:var(--accent)}
+.about-highlight .ah-icon{font-size:1.2rem;margin-bottom:.3rem}
+.about-highlight h5{font-family:var(--font-sub);font-size:.75rem;text-transform:uppercase;letter-spacing:2px;color:var(--white);margin-bottom:.2rem}
+.about-highlight p{font-size:.7rem;color:var(--text-dim);margin:0;line-height:1.5}
+
+/* COUNTERS */
+.counters{background:var(--bg3);border-top:2px solid var(--accent);border-bottom:2px solid var(--accent)}
+.counters-inner{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);padding:0}
+.counter-item{padding:3rem 2rem;text-align:center;position:relative;transition:background .3s}
+.counter-item:not(:last-child)::after{content:'';position:absolute;right:0;top:20%;height:60%;width:1px;background:var(--grid)}
+.counter-item:hover{background:var(--accent-glow)}
+.counter-num{font-family:var(--font-head);font-size:clamp(2.5rem,5vw,4.5rem);color:var(--accent);line-height:1}
+.counter-num span{font-size:.6em;color:var(--accent2)}
+.counter-label{font-family:var(--font-sub);font-size:.8rem;letter-spacing:3px;text-transform:uppercase;color:var(--text-dim);margin-top:.5rem}
+
+/* SERVICES */
+.services{background:var(--bg)}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:3rem;background:var(--grid)}
+.service-card{background:var(--bg2);padding:2.5rem;position:relative;overflow:hidden;transition:all .4s}
+.service-card::before{content:'';position:absolute;top:0;left:0;width:4px;height:0;background:var(--accent);transition:height .5s}
+.service-card:hover::before{height:100%}
+.service-card:hover{background:var(--bg3)}
+.service-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1.2rem}
+.service-icon{font-size:2.2rem;filter:grayscale(1);transition:filter .3s}
+.service-card:hover .service-icon{filter:grayscale(0)}
+.service-num{font-family:var(--font-head);font-size:2.5rem;color:var(--grid);line-height:1;transition:color .3s}
+.service-card:hover .service-num{color:var(--accent)}
+.service-card h3{font-family:var(--font-sub);font-size:1.15rem;text-transform:uppercase;letter-spacing:2px;color:var(--white);margin-bottom:.8rem}
+.service-card p{font-size:.78rem;color:var(--text-dim);line-height:1.7}
+.service-card ul{list-style:none;margin-top:1rem}
+.service-card ul li{font-size:.73rem;color:var(--text-dim);padding:.35rem 0;border-bottom:1px solid rgba(255,255,255,.05);display:flex;align-items:center;gap:.5rem}
+.service-card ul li::before{content:'→';color:var(--accent);font-weight:700;font-size:.65rem}
+
+/* INDUSTRIES */
+.industries{background:var(--bg2)}
+.industries-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:2px;margin-top:3rem;background:var(--grid)}
+.industry-card{background:var(--bg2);padding:2rem 1.5rem;text-align:center;position:relative;overflow:hidden;transition:all .4s;cursor:default}
+.industry-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--accent);transform:scaleX(0);transition:transform .4s}
+.industry-card:hover::after{transform:scaleX(1)}
+.industry-card:hover{background:var(--bg3)}
+.industry-icon{font-size:2.5rem;margin-bottom:1rem;display:block;filter:grayscale(.8);transition:filter .3s}
+.industry-card:hover .industry-icon{filter:grayscale(0)}
+.industry-card h4{font-family:var(--font-sub);font-size:.8rem;text-transform:uppercase;letter-spacing:2px;color:var(--white);line-height:1.4}
+
+/* MACHINERY */
+.machinery{background:var(--bg)}
+.machinery-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;margin-top:3rem;background:var(--grid)}
+.machine-card{background:var(--bg2);display:grid;grid-template-columns:1fr 1fr;overflow:hidden;transition:all .4s}
+.machine-card:hover{background:var(--bg3)}
+.machine-img{aspect-ratio:4/3;overflow:hidden}
+.machine-img img{width:100%;height:100%;object-fit:cover;filter:grayscale(.7) brightness(.8);transition:all .5s}
+.machine-card:hover .machine-img img{filter:grayscale(.2) brightness(.9)}
+.machine-info{padding:2rem;display:flex;flex-direction:column;justify-content:center}
+.machine-info h4{font-family:var(--font-sub);font-size:1rem;text-transform:uppercase;letter-spacing:2px;color:var(--white);margin-bottom:.8rem}
+.machine-info p{font-size:.78rem;color:var(--text-dim);line-height:1.7;margin-bottom:.8rem}
+.machine-specs{list-style:none}
+.machine-specs li{font-size:.7rem;color:var(--text-dim);padding:.25rem 0;display:flex;align-items:center;gap:.5rem}
+.machine-specs li::before{content:'■';color:var(--accent);font-size:.5rem}
+.machine-specs li strong{color:var(--accent)}
+
+/* CERTIFICATIONS */
+.certs{background:var(--bg2)}
+.certs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:3rem}
+.cert-card{border:1px solid var(--grid);padding:2.5rem;text-align:center;transition:all .4s;position:relative;overflow:hidden}
+.cert-card::before{content:'';position:absolute;inset:0;background:var(--accent);opacity:0;transition:opacity .3s}
+.cert-card:hover::before{opacity:.08}
+.cert-card:hover{border-color:var(--accent);transform:translateY(-4px)}
+.cert-icon{font-size:2.5rem;margin-bottom:1rem;position:relative}
+.cert-card h3{font-family:var(--font-sub);font-size:1.1rem;text-transform:uppercase;letter-spacing:3px;color:var(--white);margin-bottom:.5rem;position:relative}
+.cert-card p{font-size:.75rem;color:var(--text-dim);position:relative;line-height:1.7}
+
+/* PROJECTS / GALLERY */
+.projects{background:var(--bg)}
+.projects-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;margin-top:3rem}
+.project-item{position:relative;aspect-ratio:1;overflow:hidden;cursor:pointer}
+.project-item.wide{grid-column:span 2}
+.project-item.tall{grid-row:span 2}
+.project-item img{width:100%;height:100%;object-fit:cover;filter:grayscale(.7) brightness(.7);transition:all .6s}
+.project-item:hover img{filter:grayscale(0) brightness(1);transform:scale(1.08)}
+.project-overlay{position:absolute;inset:0;background:linear-gradient(transparent 40%,rgba(0,0,0,.9));display:flex;flex-direction:column;justify-content:flex-end;padding:1.5rem;opacity:0;transition:opacity .4s}
+.project-item:hover .project-overlay{opacity:1}
+.project-overlay h4{font-family:var(--font-sub);font-size:.85rem;text-transform:uppercase;letter-spacing:2px;color:var(--white)}
+.project-overlay p{font-size:.7rem;color:var(--text-dim);margin-top:.3rem}
+
+/* CONTACT */
+.contact{background:var(--bg2)}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;margin-top:3rem}
+.contact-info{display:flex;flex-direction:column;gap:2rem}
+.contact-block h4{font-family:var(--font-sub);font-size:.8rem;letter-spacing:4px;text-transform:uppercase;color:var(--accent);margin-bottom:.5rem}
+.contact-block p,.contact-block a{font-size:.85rem;color:var(--text-dim);text-decoration:none;display:block;line-height:1.8}
+.contact-block a:hover{color:var(--accent)}
+.contact-map{margin-top:1rem;aspect-ratio:16/9;background:var(--bg3);border:1px solid var(--grid);overflow:hidden}
+.contact-map iframe{width:100%;height:100%;border:0;filter:grayscale(1) invert(1) contrast(.8);opacity:.7}
+.contact-form{display:flex;flex-direction:column;gap:1rem}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.form-group{position:relative}
+.form-group label{font-size:.65rem;letter-spacing:3px;text-transform:uppercase;color:var(--text-dim);margin-bottom:.3rem;display:block}
+.form-group input,.form-group textarea,.form-group select{width:100%;background:var(--bg);border:1px solid var(--grid);color:var(--white);padding:.8rem 1rem;font-family:var(--font-body);font-size:.85rem;transition:border-color .3s;outline:none}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:var(--accent)}
+.form-group textarea{min-height:120px;resize:vertical}
+.form-group select{appearance:none;cursor:pointer}
+.form-submit{padding:1.1rem 3rem;background:var(--accent);color:var(--bg);font-family:var(--font-sub);font-size:1rem;text-transform:uppercase;letter-spacing:3px;border:none;cursor:pointer;font-weight:700;transition:all .3s;align-self:flex-start;display:flex;align-items:center;gap:.8rem}
+.form-submit:hover{background:var(--accent2);transform:translateY(-2px)}
+.form-submit svg{width:18px;height:18px}
+
+/* FOOTER */
+footer{background:var(--bg3);padding:3rem 2rem;border-top:2px solid var(--accent)}
+.footer-inner{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr;gap:3rem;align-items:start}
+.footer-brand .nav-logo{font-size:1.5rem;margin-bottom:1rem;display:inline-flex}
+.footer-brand p{font-size:.72rem;color:var(--text-dim);line-height:1.8;max-width:350px}
+.footer-col h5{font-family:var(--font-sub);font-size:.75rem;text-transform:uppercase;letter-spacing:3px;color:var(--accent);margin-bottom:1rem}
+.footer-col a,.footer-col p{font-size:.72rem;color:var(--text-dim);text-decoration:none;display:block;line-height:2;transition:color .3s}
+.footer-col a:hover{color:var(--accent)}
+.footer-bottom{max-width:1400px;margin:2rem auto 0;padding-top:1.5rem;border-top:1px solid var(--grid);display:flex;justify-content:space-between;align-items:center}
+.footer-bottom p{font-size:.65rem;color:var(--text-dim);letter-spacing:1px}
+.footer-bottom a{color:var(--accent);text-decoration:none}
+
+/* ANIMATIONS */
+.reveal{opacity:0;transform:translateY(40px);transition:all .8s cubic-bezier(.25,.46,.45,.94)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-left{opacity:0;transform:translateX(-40px);transition:all .8s cubic-bezier(.25,.46,.45,.94)}
+.reveal-left.visible{opacity:1;transform:translateX(0)}
+.reveal-right{opacity:0;transform:translateX(40px);transition:all .8s cubic-bezier(.25,.46,.45,.94)}
+.reveal-right.visible{opacity:1;transform:translateX(0)}
+.stagger{transition-delay:calc(var(--i,0) * .1s)}
+
+/* MOBILE */
+@media(max-width:1100px){
+.services-grid{grid-template-columns:repeat(2,1fr)}
+.machinery-grid{grid-template-columns:1fr}
+.machine-card{grid-template-columns:1fr 1fr}
+.projects-grid{grid-template-columns:repeat(3,1fr)}
+.footer-inner{grid-template-columns:1fr 1fr}
+}
+@media(max-width:900px){
+.nav-links{position:fixed;top:0;right:-100%;width:70%;height:100vh;background:var(--bg3);flex-direction:column;padding:5rem 2rem;transition:right .4s;border-left:2px solid var(--accent)}
+.nav-links.open{right:0}
+.hamburger{display:flex}
+.lang-switch{order:-1}
+.about-grid,.contact-grid{grid-template-columns:1fr}
+.counters-inner{grid-template-columns:repeat(2,1fr)}
+.counter-item:nth-child(2)::after{display:none}
+.certs-grid{grid-template-columns:1fr}
+.services-grid{grid-template-columns:1fr}
+.projects-grid{grid-template-columns:repeat(2,1fr)}
+.hero-stats{gap:2rem}
+.hero h1{font-size:clamp(2.8rem,8vw,5rem)}
+.machine-card{grid-template-columns:1fr}
+.form-row{grid-template-columns:1fr}
+.footer-inner{grid-template-columns:1fr}
+.industries-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:500px){
+.projects-grid{grid-template-columns:1fr}
+.project-item.wide{grid-column:span 1}
+.hero-stats{flex-direction:column;gap:1.5rem}
+.counters-inner{grid-template-columns:1fr}
+.counter-item::after{display:none}
+.industries-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="grid-overlay"></div>
+<div class="concrete-texture"></div>
+
+<!-- FLOATING CTA -->
+<a href="#contact" class="floating-cta" id="floatingCta">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+Zapytaj o wycenę
+</a>
+
+<!-- NAV -->
+<nav id="mainNav">
+<div class="nav-inner">
+<a href="#hero" class="nav-logo">BUD<span>INVEST</span> <small>STEEL</small></a>
+<div class="nav-right">
+<ul class="nav-links" id="navLinks">
+<li><a href="#about">O nas</a></li>
+<li><a href="#services">Usługi</a></li>
+<li><a href="#industries">Branże</a></li>
+<li><a href="#machinery">Park maszynowy</a></li>
+<li><a href="#certs">Certyfikaty</a></li>
+<li><a href="#projects">Realizacje</a></li>
+<li><a href="#contact">Kontakt</a></li>
+</ul>
+<div class="lang-switch">
+<a href="#" class="active-lang">PL</a>
+<a href="#">EN</a>
+<a href="#">DE</a>
+</div>
+<button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+</div>
+</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+<div class="hero-bg"></div>
+<div class="hero-noise"></div>
+<div class="hero-vignette"></div>
+<div class="hero-content">
+<div class="hero-tag">Tczew, Polska — od 2009 roku</div>
+<h1>STAL.<br><span class="outline">PRECYZJA.</span><br>SIŁA.</h1>
+<p class="hero-sub">Generalny wykonawca konstrukcji stalowych, rurociągów i zbiorników ciśnieniowych. Kompleksowa obsługa przemysłu — od projektu po montaż na obiekcie.</p>
+<div class="hero-ctas">
+<a href="#contact" class="hero-cta">Zapytaj o wycenę <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+<a href="#services" class="hero-cta-secondary">Nasze usługi</a>
+</div>
+<div class="hero-stats">
+<div class="stat"><div class="stat-num" data-target="15">0</div><div class="stat-label">Lat doświadczenia</div></div>
+<div class="stat"><div class="stat-num" data-target="200">0</div><div class="stat-label">Zrealizowanych projektów</div></div>
+<div class="stat"><div class="stat-num" data-target="100">0</div><div class="stat-label">Specjalistów</div></div>
+<div class="stat"><div class="stat-num" data-target="3">0</div><div class="stat-label">Certyfikaty jakości</div></div>
+</div>
+</div>
+<div class="hero-scroll"><span>Przewiń</span><div class="line"></div></div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+<div class="section-pad">
+<div class="section-label">O firmie</div>
+<div class="section-title">Budujemy <span class="dim">ze stali</span></div>
+<div class="section-desc">Kompleksowe rozwiązania dla przemysłu — od prefabrykacji po montaż na obiekcie klienta. Działamy w Polsce, Niemczech i Skandynawii.</div>
+<div class="about-grid">
+<div class="about-img reveal-left">
+<img src="https://images.unsplash.com/photo-1565034957450-e7f4af5b4c4e?w=800&q=80" alt="Hala produkcyjna BUD-INVEST" loading="lazy">
+<div class="about-badge">15+<small>LAT NA RYNKU</small></div>
+</div>
+<div class="about-text reveal-right">
+<p><strong>BUD-INVEST Sp. z o.o.</strong> to dynamicznie rozwijająca się firma z siedzibą w Tczewie, specjalizująca się w kompleksowej obróbce metali, prefabrykacji konstrukcji stalowych oraz produkcji elementów betonowych dla rynku polskiego i niemieckiego.</p>
+<p>Działamy jako <strong>generalny wykonawca i podwykonawca</strong> przy największych inwestycjach przemysłowych. Nasz zespół <strong>ponad 100 specjalistów</strong> — w tym certyfikowani spawacze, inżynierowie konstrukcji i technolodzy spawania — gwarantuje realizację nawet najbardziej wymagających projektów.</p>
+<p>Certyfikaty <strong>EN 1090, EN ISO 3834</strong> oraz świadectwa spawalnicze potwierdzają najwyższe standardy naszej pracy. Obsługujemy klientów w <strong>trzech językach: polskim, niemieckim i angielskim</strong>.</p>
+<div class="about-highlights">
+<div class="about-highlight">
+<div class="ah-icon">🌍</div>
+<h5>Międzynarodowa marka</h5>
+<p>Realizacje w Polsce, Niemczech i Skandynawii</p>
+</div>
+<div class="about-highlight">
+<div class="ah-icon">🏗️</div>
+<h5>Generalny wykonawca</h5>
+<p>Kompleksowa obsługa od projektu po montaż</p>
+</div>
+<div class="about-highlight">
+<div class="ah-icon">👷</div>
+<h5>100+ specjalistów</h5>
+<p>Certyfikowani spawacze i inżynierowie</p>
+</div>
+<div class="about-highlight">
+<div class="ah-icon">📋</div>
+<h5>3 certyfikaty</h5>
+<p>EN 1090, EN ISO 3834, Świadectwo spawalnicze</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- COUNTERS -->
+<section class="counters">
+<div class="counters-inner">
+<div class="counter-item reveal">
+<div class="counter-num"><span class="count" data-target="15">0</span><span>+</span></div>
+<div class="counter-label">Lat doświadczenia</div>
+</div>
+<div class="counter-item reveal">
+<div class="counter-num"><span class="count" data-target="200">0</span><span>+</span></div>
+<div class="counter-label">Zrealizowanych projektów</div>
+</div>
+<div class="counter-item reveal">
+<div class="counter-num"><span class="count" data-target="100">0</span><span>+</span></div>
+<div class="counter-label">Specjalistów w zespole</div>
+</div>
+<div class="counter-item reveal">
+<div class="counter-num"><span class="count" data-target="3">0</span><span></span></div>
+<div class="counter-label">Certyfikaty jakości</div>
+</div>
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+<div class="section-pad">
+<div class="section-label">Usługi</div>
+<div class="section-title">Co <span class="dim">robimy</span></div>
+<div class="section-desc">Oferujemy kompleksową obsługę w zakresie konstrukcji stalowych, rurociągów, zbiorników, obróbki metali i prefabrykacji betonu. Każdy projekt traktujemy indywidualnie.</div>
+<div class="services-grid">
+
+<div class="service-card reveal" style="--i:0">
+<div class="service-header">
+<div class="service-icon">🏗️</div>
+<div class="service-num">01</div>
+</div>
+<h3>Konstrukcje stalowe</h3>
+<p>Prefabrykacja i montaż konstrukcji nośnych dla obiektów przemysłowych. Realizacja zgodna z EN 1090 — klasa EXC3.</p>
+<ul>
+<li>Hale produkcyjne i magazynowe</li>
+<li>Platformy robocze i podesty</li>
+<li>Konstrukcje wsporcze i nośne</li>
+<li>Schody, balustrady, elementy architektoniczne</li>
+<li>Montaż na obiekcie klienta</li>
+</ul>
+</div>
+
+<div class="service-card reveal" style="--i:1">
+<div class="service-header">
+<div class="service-icon">🔧</div>
+<div class="service-num">02</div>
+</div>
+<h3>Rurociągi przemysłowe</h3>
+<p>Montaż, modernizacja i remonty rurociągów technologicznych dla przemysłu chemicznego, petrochemicznego i energetycznego.</p>
+<ul>
+<li>Rurociągi procesowe i mediów</li>
+<li>Instalacje wysokociśnieniowe</li>
+<li>Modernizacja istniejących instalacji</li>
+<li>Prefabrykacja i montaż na obiekcie</li>
+<li>Próby ciśnieniowe i dokumentacja</li>
+</ul>
+</div>
+
+<div class="service-card reveal" style="--i:2">
+<div class="service-header">
+<div class="service-icon">⚙️</div>
+<div class="service-num">03</div>
+</div>
+<h3>Zbiorniki ciśnieniowe i bezciśnieniowe</h3>
+<p>Produkcja i montaż zbiorników stalowych zgodnie z wymaganiami ASME i PED. Aparatura procesowa na zamówienie.</p>
+<ul>
+<li>Zbiorniki magazynowe i procesowe</li>
+<li>Zbiorniki ciśnieniowe (PED/ASME)</li>
+<li>Wymienniki ciepła</li>
+<li>Reaktory i mieszalniki</li>
+<li>Aparatura procesowa</li>
+</ul>
+</div>
+
+<div class="service-card reveal" style="--i:3">
+<div class="service-header">
+<div class="service-icon">🔥</div>
+<div class="service-num">04</div>
+</div>
+<h3>Obróbka metali</h3>
+<p>Kompleksowa obróbka z wykorzystaniem nowoczesnego parku maszynowego. Wszystkie technologie spawania i cięcia.</p>
+<ul>
+<li>Spawanie: elektryczne, gazowe, CO₂, argon, pod topnikiem</li>
+<li>Cięcie wodą — JETEDGE 6200 bar</li>
+<li>Cięcie plazmą i laserem</li>
+<li>Obróbka CNC — toczenie, frezowanie</li>
+<li>Gięcie, walcowanie, szlifowanie</li>
+</ul>
+</div>
+
+<div class="service-card reveal" style="--i:4">
+<div class="service-header">
+<div class="service-icon">🧱</div>
+<div class="service-num">05</div>
+</div>
+<h3>Prefabrykacja elementów betonowych</h3>
+<p>Zbrojenia budowlane i prefabrykaty betonowe dla rynku polskiego i niemieckiego. Stała współpraca z generalnymi wykonawcami.</p>
+<ul>
+<li>Zbrojenia budowlane</li>
+<li>Prefabrykaty betonowe i żelbetowe</li>
+<li>Elementy fundamentowe</li>
+<li>Elementy infrastruktury drogowej</li>
+<li>Eksport na rynek niemiecki (DE)</li>
+</ul>
+</div>
+
+<div class="service-card reveal" style="--i:5">
+<div class="service-header">
+<div class="service-icon">🛠️</div>
+<div class="service-num">06</div>
+</div>
+<h3>Modernizacja i serwis linii technologicznych</h3>
+<p>Optymalizacja istniejących instalacji przemysłowych. Remonty, przebudowy i przeglądy okresowe.</p>
+<ul>
+<li>Modernizacja linii produkcyjnych</li>
+<li>Optymalizacja procesów technologicznych</li>
+<li>Remonty i przeglądy instalacji</li>
+<li>Nadzór spawalniczy</li>
+<li>Serwis i wsparcie techniczne 24/7</li>
+</ul>
+</div>
+
+</div>
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- INDUSTRIES -->
+<section class="industries" id="industries">
+<div class="section-pad">
+<div class="section-label">Branże</div>
+<div class="section-title">Dla kogo <span class="dim">pracujemy</span></div>
+<div class="section-desc">Nasze doświadczenie obejmuje kluczowe sektory przemysłu. Znamy specyfikę każdej branży i dostosowujemy rozwiązania do indywidualnych wymagań.</div>
+<div class="industries-grid">
+<div class="industry-card reveal" style="--i:0">
+<span class="industry-icon">🧪</span>
+<h4>Przemysł chemiczny i petrochemiczny</h4>
+</div>
+<div class="industry-card reveal" style="--i:1">
+<span class="industry-icon">📄</span>
+<h4>Przemysł papierniczy</h4>
+</div>
+<div class="industry-card reveal" style="--i:2">
+<span class="industry-icon">💊</span>
+<h4>Przemysł farmaceutyczny i spożywczy</h4>
+</div>
+<div class="industry-card reveal" style="--i:3">
+<span class="industry-icon">🚢</span>
+<h4>Przemysł stoczniowy i offshore</h4>
+</div>
+<div class="industry-card reveal" style="--i:4">
+<span class="industry-icon">⚡</span>
+<h4>Energetyka</h4>
+</div>
+<div class="industry-card reveal" style="--i:5">
+<span class="industry-icon">💧</span>
+<h4>Uzdatnianie wody i ochrona środowiska</h4>
+</div>
+<div class="industry-card reveal" style="--i:6">
+<span class="industry-icon">🌉</span>
+<h4>Budownictwo drogowe i mostowe</h4>
+</div>
+</div>
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- MACHINERY -->
+<section class="machinery" id="machinery">
+<div class="section-pad">
+<div class="section-label">Park maszynowy</div>
+<div class="section-title">Nasze <span class="dim">zaplecze</span></div>
+<div class="section-desc">Nowoczesny park maszynowy to podstawa precyzyjnej realizacji. Inwestujemy w najnowsze technologie cięcia, spawania i obróbki skrawaniem.</div>
+
+<div class="machinery-grid">
+<div class="machine-card reveal">
+<div class="machine-img">
+<img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=600&q=80" alt="Hala spawalnicza" loading="lazy">
+</div>
+<div class="machine-info">
+<h4>Hala spawalnicza z suwnicami</h4>
+<p>W pełni wyposażona hala produkcyjna z suwnicami o nośności do 20 ton. Stanowiska spawalnicze dla wszystkich technologii.</p>
+<ul class="machine-specs">
+<li>Suwnice <strong>do 20 ton</strong></li>
+<li>Spawanie MIG/MAG/TIG/SAW</li>
+<li>Nagrzewanie indukcyjne</li>
+<li>Stanowiska do dużych gabarytów</li>
+</ul>
+</div>
+</div>
+
+<div class="machine-card reveal">
+<div class="machine-img">
+<img src="https://images.unsplash.com/photo-1605296867304-46d5465a13f1?w=600&q=80" alt="Cięcie wodą" loading="lazy">
+</div>
+<div class="machine-info">
+<h4>Cięcie wodą — JETEDGE</h4>
+<p>Precyzyjne cięcie wodą pod ciśnieniem 6200 bar. Technologia do najtwardszych materiałów.</p>
+<ul class="machine-specs">
+<li>Ciśnienie <strong>6200 bar</strong></li>
+<li>Pole cięcia <strong>2000 × 4000 mm</strong></li>
+<li>Stal do <strong>300 mm</strong> grubości</li>
+<li>Dokładność <strong>±0.2 mm</strong></li>
+</ul>
+</div>
+</div>
+
+<div class="machine-card reveal">
+<div class="machine-img">
+<img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=600&q=80" alt="Cięcie plazmowe" loading="lazy">
+</div>
+<div class="machine-info">
+<h4>Cięcie plazmą i laserem</h4>
+<p>Automatyczne stacje do cięcia plazmowego i laserowego. Precyzja i powtarzalność dla produkcji seryjnej.</p>
+<ul class="machine-specs">
+<li>CNC sterowanie numeryczne</li>
+<li>Cięcie stali, aluminium, inox</li>
+<li>Grubość do <strong>150 mm</strong> (plazma)</li>
+<li>Wysokowydajna automatyzacja</li>
+</ul>
+</div>
+</div>
+
+<div class="machine-card reveal">
+<div class="machine-img">
+<img src="https://images.unsplash.com/photo-1565034957450-e7f4af5b4c4e?w=600&q=80" alt="Obróbka skrawaniem" loading="lazy">
+</div>
+<div class="machine-info">
+<h4>Obróbka skrawaniem</h4>
+<p>Kompletne zaplecze do obróbki mechanicznej — toczenie, wiercenie, frezowanie, struganie i szlifowanie.</p>
+<ul class="machine-specs">
+<li>Toczenie CNC i konwencjonalne</li>
+<li>Frezowanie i wiercenie</li>
+<li>Struganie i szlifowanie</li>
+<li>Obróbka elementów <strong>wielkogabarytowych</strong></li>
+</ul>
+</div>
+</div>
+</div>
+
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CERTIFICATIONS -->
+<section class="certs" id="certs">
+<div class="section-pad">
+<div class="section-label">Certyfikaty</div>
+<div class="section-title">Gwarancja <span class="dim">jakości</span></div>
+<div class="section-desc">Posiadamy pełne certyfikaty europejskie potwierdzające najwyższe standardy w zakresie wykonawstwa konstrukcji stalowych i spawalnictwa.</div>
+<div class="certs-grid">
+<div class="cert-card reveal">
+<div class="cert-icon">🏗️</div>
+<h3>EN 1090</h3>
+<p>Certyfikat wykonawstwa konstrukcji stalowych i aluminiowych — klasa EXC3. Pełna zgodność z europejskimi normami budowlanymi. Uprawnienia do realizacji obiektów użyteczności publicznej.</p>
+</div>
+<div class="cert-card reveal">
+<div class="cert-icon">🔥</div>
+<h3>EN ISO 3834</h3>
+<p>Wymagania jakości dotyczące spawania materiałów metalowych. Kompleksowy system zapewnienia jakości w procesach spawalniczych — od kwalifikacji personelu po kontrolę końcową.</p>
+</div>
+<div class="cert-card reveal">
+<div class="cert-icon">📋</div>
+<h3>Świadectwo spawalnicze</h3>
+<p>Kwalifikowani spawacze z uprawnieniami do spawania konstrukcji nośnych, urządzeń ciśnieniowych i aparatury procesowej. Regularne badania i recertyfikacja.</p>
+</div>
+</div>
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PROJECTS -->
+<section class="projects" id="projects">
+<div class="section-pad">
+<div class="section-label">Realizacje</div>
+<div class="section-title">Nasze <span class="dim">projekty</span></div>
+<div class="section-desc">Wybrane realizacje z zakresu konstrukcji stalowych, rurociągów, zbiorników i montażu na obiekcie. Każdy projekt to indywidualne wyzwanie.</div>
+</div>
+<div class="projects-grid">
+<div class="project-item wide reveal">
+<img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=800&q=80" alt="Spawanie konstrukcji" loading="lazy">
+<div class="project-overlay"><h4>Spawanie konstrukcji nośnej</h4><p>Hala produkcyjna — Gdańsk</p></div>
+</div>
+<div class="project-item reveal">
+<img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=600&q=80" alt="Konstrukcje stalowe" loading="lazy">
+<div class="project-overlay"><h4>Konstrukcja hali</h4><p>Obiekt przemysłowy — Szczecin</p></div>
+</div>
+<div class="project-item reveal">
+<img src="https://images.unsplash.com/photo-1513828583688-c52646db42da?w=600&q=80" alt="Rurociągi" loading="lazy">
+<div class="project-overlay"><h4>Rurociągi technologiczne</h4><p>Rafineria — Płock</p></div>
+</div>
+<div class="project-item reveal">
+<img src="https://images.unsplash.com/photo-1605296867304-46d5465a13f1?w=600&q=80" alt="Cięcie plazmowe" loading="lazy">
+<div class="project-overlay"><h4>Cięcie plazmowe CNC</h4><p>Elementy zbiornika ciśnieniowego</p></div>
+</div>
+<div class="project-item wide reveal">
+<img src="https://images.unsplash.com/photo-1590846083693-f23fdede3a7e?w=800&q=80" alt="Montaż na obiekcie" loading="lazy">
+<div class="project-overlay"><h4>Montaż na obiekcie</h4><p>Modernizacja linii technologicznej — Hamburg, DE</p></div>
+</div>
+<div class="project-item reveal">
+<img src="https://images.unsplash.com/photo-1504917595217-d4dc5ede4bcd?w=600&q=80" alt="Zbiornik stalowy" loading="lazy">
+<div class="project-overlay"><h4>Zbiornik magazynowy</h4><p>Przemysł chemiczny — Bydgoszcz</p></div>
+</div>
+<div class="project-item reveal">
+<img src="https://images.unsplash.com/photo-1565034957450-e7f4af5b4c4e?w=600&q=80" alt="Obróbka CNC" loading="lazy">
+<div class="project-overlay"><h4>Obróbka CNC</h4><p>Elementy maszynowe — seria 200 szt.</p></div>
+</div>
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+<div class="section-pad">
+<div class="section-label">Kontakt</div>
+<div class="section-title">Porozmawiajmy <span class="dim">o projekcie</span></div>
+<div class="section-desc">Przygotujemy indywidualną wycenę dla Twojego projektu. Odpowiadamy w ciągu 24 godzin.</div>
+<div class="contact-grid">
+<div class="contact-info reveal-left">
+<div class="contact-block">
+<h4>Siedziba firmy</h4>
+<p>BUD-INVEST Sp. z o.o.<br>ul. Dworcowa 12<br>83-100 Tczew, Polska</p>
+</div>
+<div class="contact-block">
+<h4>Telefon</h4>
+<a href="tel:+48511641580">+48 511 641 580</a>
+</div>
+<div class="contact-block">
+<h4>Email</h4>
+<a href="mailto:kontakt@bud-invest.com">kontakt@bud-invest.com</a>
+</div>
+<div class="contact-block">
+<h4>Dane rejestrowe</h4>
+<p>NIP: 5932594532<br>KRS: 0000450321</p>
+</div>
+<div class="contact-block">
+<h4>Języki obsługi</h4>
+<div class="lang-switch" style="border:1px solid var(--grid);display:inline-flex;margin-top:.3rem">
+<a href="#" class="active-lang" style="pointer-events:none">PL</a>
+<a href="#" style="pointer-events:none">EN</a>
+<a href="#" style="pointer-events:none">DE</a>
+</div>
+</div>
+<div class="contact-map">
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2331.5!2d18.7953!3d54.0927!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTTCsDA1JzMzLjciTiAxOMKwNDcnNDMuMSJF!5e0!3m2!1spl!2spl!4v1" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Lokalizacja BUD-INVEST"></iframe>
+</div>
+</div>
+<div class="contact-form reveal-right">
+<div class="form-row">
+<div class="form-group">
+<label>Imię i nazwisko *</label>
+<input type="text" placeholder="Jan Kowalski" required>
+</div>
+<div class="form-group">
+<label>Firma</label>
+<input type="text" placeholder="Nazwa firmy">
+</div>
+</div>
+<div class="form-row">
+<div class="form-group">
+<label>Email *</label>
+<input type="email" placeholder="jan@firma.pl" required>
+</div>
+<div class="form-group">
+<label>Telefon</label>
+<input type="tel" placeholder="+48 ...">
+</div>
+</div>
+<div class="form-group">
+<label>Zakres usług</label>
+<select>
+<option value="">— Wybierz zakres —</option>
+<option>Konstrukcje stalowe</option>
+<option>Rurociągi przemysłowe</option>
+<option>Zbiorniki ciśnieniowe</option>
+<option>Obróbka metali</option>
+<option>Prefabrykacja betonu</option>
+<option>Modernizacja i serwis</option>
+<option>Inne</option>
+</select>
+</div>
+<div class="form-group">
+<label>Opis projektu *</label>
+<textarea placeholder="Opisz swój projekt — zakres, materiały, terminy..." required></textarea>
+</div>
+<button class="form-submit" type="button">Wyślij zapytanie <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+</div>
+</div>
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+<div class="footer-inner">
+<div class="footer-brand">
+<a href="#hero" class="nav-logo">BUD<span>INVEST</span> <small>STEEL</small></a>
+<p>Kompleksowe rozwiązania w zakresie konstrukcji stalowych, rurociągów przemysłowych i obróbki metali. Działamy na rynkach polskim, niemieckim i skandynawskim od 2009 roku.</p>
+</div>
+<div class="footer-col">
+<h5>Usługi</h5>
+<a href="#services">Konstrukcje stalowe</a>
+<a href="#services">Rurociągi przemysłowe</a>
+<a href="#services">Zbiorniki ciśnieniowe</a>
+<a href="#services">Obróbka metali</a>
+<a href="#services">Prefabrykacja betonu</a>
+<a href="#services">Modernizacja i serwis</a>
+</div>
+<div class="footer-col">
+<h5>Kontakt</h5>
+<p>ul. Dworcowa 12<br>83-100 Tczew</p>
+<a href="tel:+48511641580">+48 511 641 580</a>
+<a href="mailto:kontakt@bud-invest.com">kontakt@bud-invest.com</a>
+<p style="margin-top:.5rem">NIP: 5932594532<br>KRS: 0000450321</p>
+</div>
+</div>
+<div class="footer-bottom">
+<p>&copy; 2024 BUD-INVEST Sp. z o.o. Wszelkie prawa zastrzeżone.</p>
+<p>ul. Dworcowa 12, 83-100 Tczew — <a href="mailto:kontakt@bud-invest.com">kontakt@bud-invest.com</a></p>
+</div>
+</footer>
+
+<script>
+// Mobile nav
+const hamburger=document.getElementById('hamburger'),navLinks=document.getElementById('navLinks');
+hamburger.addEventListener('click',()=>{hamburger.classList.toggle('open');navLinks.classList.toggle('open')});
+navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{hamburger.classList.remove('open');navLinks.classList.remove('open')}));
+
+// Nav scroll effect
+const mainNav=document.getElementById('mainNav');
+window.addEventListener('scroll',()=>{mainNav.classList.toggle('scrolled',window.scrollY>50)});
+
+// Floating CTA
+const floatingCta=document.getElementById('floatingCta');
+window.addEventListener('scroll',()=>{floatingCta.classList.toggle('show',window.scrollY>600)});
+
+// Scroll reveal with stagger
+const observer=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}})},{threshold:.1,rootMargin:'0px 0px -60px 0px'});
+document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el=>observer.observe(el));
+
+// Active nav on scroll
+const sections=document.querySelectorAll('section[id]');
+window.addEventListener('scroll',()=>{
+const y=window.scrollY+120;
+sections.forEach(s=>{
+const top=s.offsetTop,h=s.offsetHeight,id=s.getAttribute('id');
+const link=document.querySelector(`.nav-links a[href="#${id}"]`);
+if(link){if(y>=top&&y<top+h)link.classList.add('active');else link.classList.remove('active')}
+});
+});
+
+// Counter animation
+const countObserver=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){
+const el=e.target;const target=parseInt(el.dataset.target);
+let current=0;const duration=2000;const step=target/((duration/1000)*60);
+const animate=()=>{current+=step;if(current>=target){el.textContent=target;return}
+el.textContent=Math.floor(current);requestAnimationFrame(animate)};
+animate();countObserver.unobserve(el)}})},{threshold:.5});
+document.querySelectorAll('.count').forEach(c=>countObserver.observe(c));
+
+// Hero stat counters
+const heroStatObs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){
+const el=e.target;const target=parseInt(el.dataset.target);
+let current=0;const step=target/60;
+const animate=()=>{current+=step;if(current>=target){el.textContent=target+'+';return}
+el.textContent=Math.floor(current);requestAnimationFrame(animate)};
+animate();heroStatObs.unobserve(el)}})},{threshold:.5});
+document.querySelectorAll('.stat-num[data-target]').forEach(c=>heroStatObs.observe(c));
+</script>
+</body>
+</html>
